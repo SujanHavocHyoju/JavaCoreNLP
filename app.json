@@ -1,0 +1,8 @@
+{
+    "name" : "java-core-nlp",
+    "buildpacks" : [
+      {
+        "url" : "heroku/java"
+      }
+    ]
+  }
