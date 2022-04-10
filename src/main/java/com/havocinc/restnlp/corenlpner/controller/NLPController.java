@@ -39,10 +39,7 @@ import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
-@Api(value = "Demo NLP controller", description = "Stanford Core NLP practise.")
 @RestController
 @RequestMapping("/api/nlp")
 @CrossOrigin
@@ -57,7 +54,6 @@ public class NLPController {
     @Autowired
     private NLPService nlpService;
 
-    @ApiOperation(value = "NER to Check for specific entity in the text.", response = Iterable.class, tags = "lookForEntity")
     @PostMapping(value = "/ner")
     public Set<String> getNERTokens(@RequestBody String input, @RequestParam EntityType type) {
         CoreDocument coreDocument = new CoreDocument(input);
@@ -66,7 +62,6 @@ public class NLPController {
         return new HashSet<>(nerService.resultList(labels, type));
     }
 
-    @ApiOperation(value = "NER to Check for all available entities in the text.", response = Iterable.class, tags = "getAllNEREntities")
     @PostMapping(value = "/ner/full")
     public HashMap<String, List<String>> getAllNERTokens(@RequestBody String input) {
         LinkedHashMap<String, List<String>> fullTokenMap = new LinkedHashMap<>();
@@ -78,7 +73,6 @@ public class NLPController {
         return fullTokenMap;
     }
 
-    @ApiOperation(value = "Get POS details", response = Iterable.class, tags = "getPOSTagging")
     @PostMapping("/pos")
     public HashMap<String, String> getPOSTagging(@RequestBody String input) {
         LinkedHashMap<String, String> posMap = new LinkedHashMap<>();
@@ -97,7 +91,6 @@ public class NLPController {
         return posMap;
     }
 
-    @ApiOperation(value = "Get complete POS details", response = Iterable.class, tags = "getFullPosTags")
     @PostMapping(value = "/pos/full")
     public List<Sentence> getFullPosTags(@RequestBody String input) {
         List<Sentence> sentencesWithPOS = new ArrayList<>();
@@ -109,7 +102,6 @@ public class NLPController {
         return sentencesWithPOS;
     }
 
-    @ApiOperation(value = "Detect sentiment of the text", response = Iterable.class, tags = "getSentiment")
     @PostMapping("/sentiment")
     public List<String> getSentiment(@RequestBody String input) {
         LinkedList<String> sentimentList = new LinkedList<>();
